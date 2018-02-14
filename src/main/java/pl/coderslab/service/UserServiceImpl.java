@@ -1,8 +1,7 @@
 package pl.coderslab.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,8 +36,6 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setActive(true);
-	//	Role userRole = roleRepository.findByName("ROLE_ADMIN");
-	//	user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
 
@@ -50,6 +47,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findBySupervisor(User user) {
 		return userRepository.findBySupervisor(user);
+	}
+	
+	@Override
+	public Double getMaxContractValue(User user) {
+		Set<Role> roles = user.getRoles();
+		Double max = 0.00;
+		for (Role role : roles) {
+			if (max < role.getMaxContractValue()) {
+				max = role.getMaxContractValue();
+			}
+		}
+		return max;
 	}
 
 }

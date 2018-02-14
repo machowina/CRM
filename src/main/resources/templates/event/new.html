@@ -1,0 +1,75 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-dashboard"></i>Create new event
+				</h1>
+				<p></p>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+				<li class="breadcrumb-item"><a href="#">Create new event</a></li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="row">
+						<div class="col-lg-6">
+							<h3 class="tile-title">Create new event</h3>
+							<form th:action="@{/event/new}" th:object="${event}"
+								method="post">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+    							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+								</div>
+								<p>
+									Type: <input class="form-control" type="text" th:field="*{type}" />
+								</p>
+								<p>
+									Title: <input class="form-control" type="text" th:field="*{title}" />
+								</p>
+								<p>
+									Date: <input  type="date" th:field="*{date}" />
+								</p>
+								 <p>
+									Time: <input  type="time" th:field="*{time}" />
+								</p>
+								
+								<div>
+								<label class="control-label">Client:
+								<select class="form-control" th:field="*{client}">
+									<option th:each="client : ${clientList}" th:value="${client.id}"
+										th:text="${client.name}" />
+								</select>
+								</label>
+								</div>
+								
+								<div class="tile-footer">
+								<p>
+									<input class="btn btn-primary" type="submit" value="Create" />
+								</p>
+								</div>
+							</form>
+								
+								
+
+
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

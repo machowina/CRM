@@ -1,6 +1,8 @@
 package pl.coderslab.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,6 +27,8 @@ public class Event {
 	
 	private String type;
 	
+	private String title;
+	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
@@ -32,8 +36,8 @@ public class Event {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
-	private LocalDateTime time;
+	private LocalTime time;
+	private LocalDate date;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
 	private List<Notification> notifications;

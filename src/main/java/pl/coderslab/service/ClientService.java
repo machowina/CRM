@@ -7,14 +7,14 @@ import pl.coderslab.entity.User;
 
 public interface ClientService {
 	
-	public Client findById(Long id);
-	public Client findByName(String name);
-	public List<Client> findAll();
-	public List<String> getStatusList();
-	public Long saveClient(Client client);
-	public void updateClient(Client client);
-	public void deleteClient(Long id);
-	public Long saveClientWithLoggedUser(Client client);
-	
+	Client findById(Long id);
+	Client findByName(String name);
+	List<Client> findAll();
+	List<String> getStatusList();
+	Long saveClient(Client client);
+	void updateClient(Client client);
+	void deleteClient(Long id);
+	Long saveClientWithLoggedUser(Client client);
+	List<Client> findByUser(User user);
 
 }

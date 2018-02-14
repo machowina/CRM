@@ -1,0 +1,19 @@
+{
+    "name": "Coderslab",
+    "status": "lead",
+    "nip": "1234567890",
+    "contactPerson": {
+   
+        "firstname": "Anna",
+        "lastname": "Nowak",
+        "email": "anna.nowahhk@gmail.com",
+        "phone": "607-777-776"
+    },
+    "address": {
+        "country": "Poland",
+        "region": "central",
+        "city": "Warsaw",
+        "street": "Prosta 51",
+        "postcode": "02-031"
+    }
+}

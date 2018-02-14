@@ -21,13 +21,13 @@ public class Contract {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String type;
-
 	private String title;
 
 	private String filename;
 
 	private LocalDateTime created;
+	
+	private boolean accepted;
 	
 	@ManyToOne
 	@JoinColumn(name = "author_id")

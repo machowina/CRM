@@ -1,0 +1,62 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-dashboard"></i> Create new contract
+				</h1>
+				
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+				<li class="breadcrumb-item"><a href="#">Create new contract</a></li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="row">
+						<div class="col-lg-6">
+							<h3 class="tile-title">Create new contract</h3>
+							<form th:action="@{/contract/new/{id}(id=${id})}" th:object="${contract}"
+								method="post">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+    							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+								</div>
+								<p>
+									Title: <input class="form-control" type="text" th:field="*{title}" />
+								</p>
+								<p>
+									Filename: <input class="form-control" type="text" th:field="*{filename}" />
+								</p>
+								 <p>
+									Value: <input class="form-control" type="number" th:field="*{value}" />
+								</p>
+								
+								
+								<div class="tile-footer">
+								<p>
+									<input class="btn btn-primary" type="submit" value="Create" />
+								</p>
+								</div>
+							</form>
+
+
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

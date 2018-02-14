@@ -6,9 +6,10 @@ import pl.coderslab.entity.User;
 
 public interface UserService {
 	
-	public User findByEmail(String email);
-	public void saveUser(User user);
-	public List<User> findAll();
-	public List<User> findBySupervisor(User user);
+	User findByEmail(String email);
+	void saveUser(User user);
+	List<User> findAll();
+	List<User> findBySupervisor(User user);
+	Double getMaxContractValue(User user);
 
 }

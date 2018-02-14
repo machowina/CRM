@@ -65,17 +65,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 								<p th:text="*{address.postcode}"></p>
 						
 							</div>
-							<h4 class="tile-title">Contracts</h4>
-							<table> 
-								<tr	th:each="document: ${client.contracts}" >
-									<td	th:text="${document.title}"></td>		
-									<td	th:text="${document.value}"></td>
-									<td	th:text="${document.created}"></td>
-									<td	th:text="${document.author.name}"></td>
-									<td	th:text="${document.filename}"></td>
-									
-								</tr>
-							</table>
+							
             
             </div>
             <div class="tile-footer"><a class="btn btn-primary" th:href="@{/client/edit/{id}(id=${client.id})}">Edit</a></div>
@@ -85,18 +75,34 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
           <div class="tile">
             <div class="tile-title-w-btn">
               <h3 class="title">Contracts</h3>
-              <p><a class="btn btn-primary icon-btn" href=""><i class="fa fa-plus"></i>New Contract</a></p>
+              <p><a class="btn btn-primary icon-btn" th:href="@{/contract/new/{id}(id=${id})}"><i class="fa fa-plus"></i>New Contract</a></p>
             </div>
             <div class="tile-body">
-	         	<table> 
+	         	<table class="table table-hover table-bordered" id="sampleTable"> 
+					<thead>
+	         		<tr	>
+						<td	th:text="Title"></td>		
+						<td	th:text="Value"></td>
+						<td	th:text="Created"></td>
+						<td	th:text="Author"></td>
+						<td	th:text="Filename"></td>
+						<td	th:text="Accepted"></td>
+						<td	th:text="Accept"></td>
+					</tr>
+					</thead>
+					<tbody>
 					<tr	th:each="document: ${client.contracts}" >
 						<td	th:text="${document.title}"></td>		
 						<td	th:text="${document.value}"></td>
 						<td	th:text="${document.created}"></td>
 						<td	th:text="${document.author.name}"></td>
 						<td	th:text="${document.filename}"></td>
-						
+						<td	th:text="${document.accepted}"></td>
+						<td><a th:href="@{/contract/accept/{id}(id=${document.id})}" th:text="ACCEPT"></a>
+						<a th:href="@{/contract/print/{id}(id=${document.id})}" th:text="PRINT"></a></td>
 					</tr>
+					</tbody>	
+					
 				</table>
             </div>
           </div>

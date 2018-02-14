@@ -23,6 +23,6 @@ public class Role {
 	@Column(unique = true)
 	private String name;
 	
-	private Long maxDocumentValue;
+	private Double maxContractValue;
 
 }

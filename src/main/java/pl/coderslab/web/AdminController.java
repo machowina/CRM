@@ -63,28 +63,6 @@ public class AdminController {
         }
 	} 
 	
-	/*//EDITING USER
-		@GetMapping(path = "/edit")
-		public String editClient(@RequestParam Long id, Model model) {
-			
-			User user = userService.findById(id);
-			model.addAttribute("user", user);
-		
-			
-			return "admin/editUser";
-		}
-		
-		@PostMapping(path = "/edit")
-		public String seveClient(@ModelAttribute("client") @Valid User user, BindingResult bresult) {
-			
-			if(bresult.hasErrors()) {
-	            return "client/editClient";
-	        } else {
-	        	clientService.saveClient(client);
-	    		return "client/success";
-	        }
-		} 
-*/
 
 	
 }
