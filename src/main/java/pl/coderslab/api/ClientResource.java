@@ -19,48 +19,45 @@ import pl.coderslab.service.UserService;
 @RestController
 @RequestMapping("/clients")
 public class ClientResource {
-	
+
 	private final ClientService clientService;
 	private final UserService userService;
 
 	public ClientResource(ClientService clientService, UserService userService) {
 		this.clientService = clientService;
 		this.userService = userService;
-		
+
 	}
-	
+
 	@GetMapping("/{id}")
-    ResponseEntity getClient(@PathVariable Long id){
-       Client client = clientService.findById(id);
-        return ResponseEntity.ok(client);
+	ResponseEntity getClient(@PathVariable Long id) {
+		Client client = clientService.findById(id);
+		return ResponseEntity.ok(client);
 	}
-	
+
 	@GetMapping
-    ResponseEntity getClients(){
-        return ResponseEntity.ok(clientService.findAll());
+	ResponseEntity getClients() {
+		return ResponseEntity.ok(clientService.findAll());
 	}
-	
+
 	@DeleteMapping("/{id}")
-    ResponseEntity deleteUser(@PathVariable Long id){
+	ResponseEntity deleteUser(@PathVariable Long id) {
 		clientService.deleteClient(id);
-        return ResponseEntity.accepted().build();
+		return ResponseEntity.accepted().build();
 	}
-	
+
 	@PostMapping("/{userEmail}")
-    ResponseEntity createClient(@PathVariable String userEmail, @RequestBody Client client){
+	ResponseEntity createClient(@PathVariable String userEmail, @RequestBody Client client) {
 		client.setUser(userService.findByEmail(userEmail));
-        Long id = clientService.saveClient(client);
-        return ResponseEntity.ok(id);
+		Long id = clientService.saveClient(client);
+		return ResponseEntity.ok(id);
 	}
-	
-	
+
 	@PutMapping("/{userEmail}")
-    ResponseEntity updateUser(@PathVariable String userEmail, @Valid @RequestBody Client client){
+	ResponseEntity updateUser(@PathVariable String userEmail, @Valid @RequestBody Client client) {
 		client.setUser(userService.findByEmail(userEmail));
 		clientService.updateClient(client);
-        return ResponseEntity.accepted().build();
+		return ResponseEntity.accepted().build();
 	}
-	
-	
 
 }

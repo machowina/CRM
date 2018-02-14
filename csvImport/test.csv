@@ -1,0 +1,4 @@
+CITY,CONTACTEMAIL,CONTACTFIRSTNAME,CONTACTLASTNAME,CONTACTPHONE,COUNTRY,NAME,NIP,POSTCODE,REGION,STATUS,STREET,USEREMAIL
+Warsaw,jan@kowalski.pl,Jan,Kowalski,609-987-323,Poland,Castorama,1234567890,02-030,central,lead,Prosta 50,a@a
+Warsaw,anna@nowak,Anna,Nowak,509-987-323,Poland,Luxmed,1234567890,02-030,central,lead,Prosta 51,a@a
+Krakow,john@doe,John,Doe,709-987-323,Poland,Poczta Polska,1234567890,02-546,south,lead,Sienna 13b,a@a

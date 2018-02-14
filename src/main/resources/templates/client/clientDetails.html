@@ -10,24 +10,25 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 		<div class="app-title">
 			<div>
 				<h1>
-					<i class="fa fa-dashboard">Client details</i> 
+					<i class="fa fa-dashboard"> Client details </i> 
 				</h1>
 				<p></p>
 			</div>
 			<ul class="app-breadcrumb breadcrumb">
 				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-				<li class="breadcrumb-item"><a href="#">Creating client</a></li>
+				<li class="breadcrumb-item"><a href="#">Client details</a></li>
 			</ul>
 		</div>
+		
+		
 		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
-					<div class="row">
-						<div class="col-lg-6">
-						
-							<h3 class="tile-title">Client details</h3>
-							
-							<div th:object="${client}">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">Client details</h3>
+            <div class="tile-body">
+            
+            
+            <div th:object="${client}">
 								Name:
 								<p th:text="*{name}"></p>
 								Status:
@@ -64,10 +65,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 								<p th:text="*{address.postcode}"></p>
 						
 							</div>
-							<h4 class="tile-title">Documents</h4>
+							<h4 class="tile-title">Contracts</h4>
 							<table> 
-								<tr	th:each="document: ${client.documents}" >
-									<td	th:text="${document.type}"></td>
+								<tr	th:each="document: ${client.contracts}" >
 									<td	th:text="${document.title}"></td>		
 									<td	th:text="${document.value}"></td>
 									<td	th:text="${document.created}"></td>
@@ -76,14 +76,33 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 									
 								</tr>
 							</table>
-
-						</div>
-					</div>
-				</div>
-
-
-			</div>
+            
+            </div>
+            <div class="tile-footer"><a class="btn btn-primary" th:href="@{/client/edit/{id}(id=${client.id})}">Edit</a></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tile">
+            <div class="tile-title-w-btn">
+              <h3 class="title">Contracts</h3>
+              <p><a class="btn btn-primary icon-btn" href=""><i class="fa fa-plus"></i>New Contract</a></p>
+            </div>
+            <div class="tile-body">
+	         	<table> 
+					<tr	th:each="document: ${client.contracts}" >
+						<td	th:text="${document.title}"></td>		
+						<td	th:text="${document.value}"></td>
+						<td	th:text="${document.created}"></td>
+						<td	th:text="${document.author.name}"></td>
+						<td	th:text="${document.filename}"></td>
+						
+					</tr>
+				</table>
+            </div>
+          </div>
+        </div>
 		</div>
+
 	</section>
 </body>
 </html>

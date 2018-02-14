@@ -21,19 +21,18 @@ public class ImportController {
 
 	@Autowired
 	private CsvImportExportService csvService;
-	
 
 	@GetMapping
 	public String importCsvView() {
 		return "import/getFilename";
 	}
-	
+
 	@PostMapping
 	public String importCsv(@RequestParam String filename, Model model) {
-		String newFilename = "csvImport/"+filename;
-		
+		String newFilename = "csvImport/" + filename;
+
 		List<Client> clientList = new ArrayList<>();
-		
+
 		String result = "File imported";
 		try {
 			clientList = csvService.readCsvWithHeader(newFilename);
@@ -41,10 +40,10 @@ public class ImportController {
 			result = "Error occured while importing file";
 			e.printStackTrace();
 		}
-		
+
 		model.addAttribute("clientList", clientList);
 		model.addAttribute("result", result);
-		
+
 		return "import/show";
 	}
 }

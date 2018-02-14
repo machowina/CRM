@@ -31,11 +31,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
     							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
 								</div>
 								<p>
-									Name: <input type="text" th:field="*{name}" />
+									Name: <input class="form-control" type="text" th:field="*{name}" />
 								</p>
 								<div>
 								<label class="control-label">Status:
-								<select th:field="*{status}">
+								<select class="form-control" th:field="*{status}">
 									<option th:each="el : ${statusList}" th:value="${el}"
 										th:text="${el}" />
 								</select>
@@ -43,43 +43,43 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 								</div>
 								
 								<p>
-									Nip: <input type="text" th:field="*{nip}" />
+									Nip: <input class="form-control" type="text" th:field="*{nip}" />
 								</p>
 								<h4 class="tile-title">Contact person</h4>
 								 <fieldset >
 								 <p>
-									Firstname: <input type="text" th:field="*{contactPerson.firstname}" />
+									Firstname: <input class="form-control" type="text" th:field="*{contactPerson.firstname}" />
 								</p>
 								 <p>
-									Lasttname: <input type="text" th:field="*{contactPerson.lastname}" />
+									Lasttname: <input class="form-control" type="text" th:field="*{contactPerson.lastname}" />
 								</p>
 								<p>
-									Email: <input type="text" th:field="*{contactPerson.email}" />
+									Email: <input class="form-control" type="text" th:field="*{contactPerson.email}" />
 								</p>
 								<p>
-									Phone: <input type="text" th:field="*{contactPerson.phone}" />
+									Phone: <input class="form-control" type="text" th:field="*{contactPerson.phone}" />
 								</p>
 								 </fieldset>
 								<h4 class="tile-title">Client address</h4>
 								 <fieldset >
 								 <p>
-									Country: <input type="text" th:field="*{address.country}" />
+									Country: <input class="form-control" type="text" th:field="*{address.country}" />
 								 </p>
 								 <p>
-									Region: <input type="text" th:field="*{address.region}" />
+									Region: <input class="form-control" type="text" th:field="*{address.region}" />
 								 </p>
 								 <p>
-									City: <input type="text" th:field="*{address.city}" />
+									City: <input class="form-control" type="text" th:field="*{address.city}" />
 								 </p>
 								 <p>
-									Street: <input type="text" th:field="*{address.street}" />
+									Street: <input class="form-control" type="text" th:field="*{address.street}" />
 								 </p>
 								 <p>
-									Postcode: <input type="text" th:field="*{address.postcode}" />
+									Postcode: <input class="form-control" type="text" th:field="*{address.postcode}" />
 								</p>
 								 </fieldset>
 								
-								<div>
+								<div class="tile-footer">
 								<p>
 									<input class="btn btn-primary" type="submit" value="Create" />
 								</p>

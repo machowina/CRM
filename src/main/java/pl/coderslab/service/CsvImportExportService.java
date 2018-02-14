@@ -26,49 +26,52 @@ import pl.coderslab.entity.Client;
 
 @Service
 public class CsvImportExportService {
+
+	private static final String TYPE = ".csv";
 	
 	@Autowired
 	ClientMapper clientMapper;
-	
+	@Autowired
+	private ClientService clientService;
+
 	public List<Client> readCsvWithHeader(String filename) throws IOException {
-		
+
 		Reader reader;
-		reader = Files.newBufferedReader(Paths.get(filename+".csv"));
-		
-		CsvToBean csvToBean = new CsvToBeanBuilder(reader)
-                .withType(ClientDto.class)
-                .withIgnoreLeadingWhiteSpace(true)
-                .build();
-		
+		reader = Files.newBufferedReader(Paths.get(filename + TYPE));
+
+		CsvToBean csvToBean = new CsvToBeanBuilder(reader).withType(ClientDto.class).withIgnoreLeadingWhiteSpace(true)
+				.build();
+
 		List<ClientDto> clientDtoList = csvToBean.parse();
 		List<Client> clientList = new ArrayList<>();
-		
-		for (Iterator iterator = clientDtoList.iterator(); iterator.hasNext();) {
-			ClientDto clientDto = (ClientDto) iterator.next();
-			clientList.add(clientMapper.toEntity(clientDto));
+
+		for (ClientDto clientDto : clientDtoList) {
+			Client client = clientMapper.toEntity(clientDto);
+			clientService.saveClient(client);
+			clientList.add(client);
 		}
+
 		return clientList;
 	}
-	
-	
-	public void writeCsv(String filename, List<Client> clientList) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-			
-		Writer writer = Files.newBufferedWriter(Paths.get(filename+".csv"));
-		
-		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
-                .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                .build();
-		
+
+	public void writeCsv(String filename, List<Client> clientList)
+			throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
+
+		Writer writer = Files.newBufferedWriter(Paths.get(filename + TYPE));
+
+		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+				.build();
+
 		List<ClientDto> clientDtoList = new ArrayList<ClientDto>();
-		
-		for (Iterator iterator = clientList.iterator(); iterator.hasNext();) {
-			Client client = (Client) iterator.next();
+
+		for (Client client : clientList) {
 			ClientDto clientDto = clientMapper.toDto(client);
 			clientDtoList.add(clientDto);
 		}
+
 		beanToCsv.write(clientDtoList);
-		
+		writer.close();
+
 	}
-	
 
 }

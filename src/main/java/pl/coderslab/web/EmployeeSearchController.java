@@ -31,10 +31,9 @@ import pl.coderslab.service.PdfService;
 @RequestMapping("/employeeSearch")
 @Secured("ROLE_ADMIN")
 public class EmployeeSearchController {
-	
+
 	private List<Client> clientList;
 	private String search;
-	
 
 	@Autowired
 	private AuthenticationFacade authenticationFacade;
@@ -46,88 +45,87 @@ public class EmployeeSearchController {
 	private PdfService pdfService;
 	@Autowired
 	private CsvImportExportService csvService;
-		
+
 	@ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("statusList", clientService.getStatusList());
-    }
-	
-	
-		//DEFAULT SEARCH - YOUR CLIENTS
-		@GetMapping
-		public String defaultSearch(Model model) {
-			User user = authenticationFacade.getAuthenticatedUser();
-			clientList = clientRepository.findByUser(user);
-			model.addAttribute("clientList", clientList);
-			search = "clients_maneged_by_"+user.getLastname();
-			return "employee/search";
+	public void addAttributes(Model model) {
+		model.addAttribute("statusList", clientService.getStatusList());
+	}
+
+	// DEFAULT SEARCH - YOUR CLIENTS
+	@GetMapping
+	public String defaultSearch(Model model) {
+		User user = authenticationFacade.getAuthenticatedUser();
+		clientList = clientRepository.findByUser(user);
+		model.addAttribute("clientList", clientList);
+		search = "clients_maneged_by_" + user.getLastname();
+		return "employee/search";
+	}
+
+	// CITY SEARCH
+	@GetMapping(path = "/city")
+	public String citySearch(Model model) {
+		User user = authenticationFacade.getAuthenticatedUser();
+		clientList = clientRepository.findByAddressCityOrderByNameAsc(user.getOffice().getAddress().getCity());
+		model.addAttribute("clientList", clientList);
+		search = "clients_from_" + user.getOffice().getAddress().getCity();
+		return "employee/search";
+	}
+
+	// STATUS SEARCH
+	@PostMapping(path = "/status")
+	public String statusSearch(@RequestParam String status, Model model) {
+		User user = authenticationFacade.getAuthenticatedUser();
+		clientList = clientRepository.findByStatusAndAddressCityOrderByNameAsc(status,
+				user.getOffice().getAddress().getCity());
+		model.addAttribute("clientList", clientList);
+		search = "clients_with_status_" + status;
+		return "employee/search";
+	}
+
+	// NAME SEARCH
+	@PostMapping(path = "/name")
+	public String nameSearch(@RequestParam String name, Model model) {
+		User user = authenticationFacade.getAuthenticatedUser();
+		System.out.println(name);
+		clientList = clientRepository.findByNameContainingIgnoreCaseAndAddressCityOrderByNameAsc(name,
+				user.getOffice().getAddress().getCity());
+		model.addAttribute("clientList", clientList);
+		search = "clients_with_name_" + name;
+		return "employee/search";
+	}
+
+	// PRINT SEARCH
+	@GetMapping(path = "/print")
+	public String printSearch(Model model) {
+		User user = authenticationFacade.getAuthenticatedUser();
+		String filename = "pdf/" + user.getLastname() + "_" + search + "_" + LocalDateTime.now();
+		String result = pdfService.printClientList(filename, clientList);
+		model.addAttribute("result", result);
+		return "employee/result";
+	}
+
+	// EXPORT SEARCH
+	@PostMapping(path = "/export")
+	public String exportSearch(@RequestParam String filename, Model model) {
+		User user = authenticationFacade.getAuthenticatedUser();
+		String newFilename = "csvExport/" + filename + "_" + user.getLastname();
+		String result = "File " + newFilename + ".csv generated correctly";
+
+		try {
+			csvService.writeCsv(newFilename, clientList);
+
+		} catch (CsvDataTypeMismatchException e) {
+			result = "Document not generated. Data type not matching";
+			e.printStackTrace();
+		} catch (CsvRequiredFieldEmptyException e) {
+			result = "Document not generated. Required field is empty";
+			e.printStackTrace();
+		} catch (IOException e) {
+			result = "Document not generated. Error occured.";
+			e.printStackTrace();
 		}
-		//CITY SEARCH
-		@GetMapping(path = "/city")
-		public String citySearch(Model model) {
-			User user = authenticationFacade.getAuthenticatedUser();
-			clientList = clientRepository
-					.findByAddressCityOrderByNameAsc(user.getOffice().getAddress().getCity());
-			model.addAttribute("clientList", clientList);
-			search = "clients_from_"+user.getOffice().getAddress().getCity();
-			return "employee/search";
-		}
-		//STATUS SEARCH
-		@PostMapping(path = "/status")
-		public String statusSearch(@RequestParam String status, Model model) {
-			User user = authenticationFacade.getAuthenticatedUser();
-			clientList = clientRepository
-					.findByStatusAndAddressCityOrderByNameAsc(status,user.getOffice().getAddress().getCity());
-			model.addAttribute("clientList", clientList);
-			search = "clients_with_status_"+status;
-			return "employee/search";
-		}
-		//NAME SEARCH
-		@PostMapping(path = "/name")
-		public String nameSearch(@RequestParam String name, Model model) {
-			User user = authenticationFacade.getAuthenticatedUser();
-			clientList = clientRepository
-					.findByNameContainingIgnoreCaseAndAddressCityOrderByNameAsc(name, user.getOffice().getAddress().getCity());
-			model.addAttribute("clientList", clientList);
-			search = "clients_with_name_"+name;
-			return "employee/search";
-		}
-		
-		//PRINT SEARCH
-		@GetMapping(path = "/print")
-		public String printSearch(Model model) {
-			User user = authenticationFacade.getAuthenticatedUser();
-			String filename = "pdf/"+user.getLastname()+"_"+search+"_"+LocalDateTime.now();
-			String result = pdfService.printClientList(filename, clientList);
-			model.addAttribute("result", result);
-    		return "employee/result";
-		} 
-		//EXPORT SEARCH
-		@PostMapping(path = "/export")
-		public String exportSearch(@RequestParam String filename, Model model) {
-			User user = authenticationFacade.getAuthenticatedUser();
-			
-			String newFilename = "csvExport/"+filename+"_"+user.getLastname();
-			String result = "File "+newFilename+".csv generated correctly";
-			
-			try {
-				csvService.writeCsv(newFilename, clientList);
-				
-			} catch (CsvDataTypeMismatchException e) {
-				result = "Document not generated. Data type not matching";
-				e.printStackTrace();
-			} catch (CsvRequiredFieldEmptyException e) {
-				result = "Document not generated. Required field is empty";
-				e.printStackTrace();
-			} catch (IOException e) {
-				result = "Document not generated. Error occured.";
-				e.printStackTrace();
-			}
-			model.addAttribute("result", result);
-    		return "employee/result";
-		} 
-	
-		
-	
-		
+		model.addAttribute("result", result);
+		return "employee/result";
+	}
+
 }

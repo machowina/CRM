@@ -21,90 +21,84 @@ import pl.coderslab.service.UserService;
 @Controller
 @RequestMapping("client")
 public class ClientController {
-	
+
 	@Autowired
 	private ClientService clientService;
 	@Autowired
 	private UserService userService;
-	
-	//ADDING NEW CLIENT
+
+	// ADDING NEW CLIENT
 	@GetMapping(path = "/add")
 	public String addClient(Model model) {
-		
+
 		Client client = new Client();
 		model.addAttribute("client", client);
-		
+
 		List<String> statusList = clientService.getStatusList();
 		model.addAttribute("statusList", statusList);
-		
+
 		return "client/addClient";
 	}
-	
+
 	@PostMapping(path = "/add")
 	public String registerClient(@ModelAttribute("client") @Valid Client client, BindingResult bresult) {
-		
-		if(bresult.hasErrors()) {
-            return "client/addClient";
-        } else {
-        	clientService.saveClientWithLoggedUser(client);
-    		return "client/success";
-        }
-	} 
-	
 
-	
-	//EDITING CLIENT
+		if (bresult.hasErrors()) {
+			return "client/addClient";
+		} else {
+			clientService.saveClientWithLoggedUser(client);
+			return "client/success";
+		}
+	}
+
+	// EDITING CLIENT
 	@GetMapping(path = "/edit/{id}")
 	public String editClient(@PathVariable Long id, Model model) {
-		
+
 		Client client = clientService.findById(id);
 		model.addAttribute("client", client);
-		
+
 		List<String> statusList = clientService.getStatusList();
 		model.addAttribute("statusList", statusList);
-		
+
 		return "client/editClient";
 	}
 
-
 	@PostMapping(path = "/edit/{id}")
-	public String seveClient(@ModelAttribute("client") @Valid Client client, BindingResult bresult, @PathVariable Long id) {
-		
-		if(bresult.hasErrors()) {
-            return "client/editClient";
-        } else {
-        	
-        	client.setId(id);
-        	client.setUser(userService.findByEmail(client.getUser().getEmail()));
-        	clientService.updateClient(client);
-    		return "client/success";
-        }
-	} 
-	
-	
-	//CLIENT DETAILS
+	public String seveClient(@ModelAttribute("client") @Valid Client client, BindingResult bresult,
+			@PathVariable Long id) {
+
+		if (bresult.hasErrors()) {
+			return "client/editClient";
+		} else {
+
+			client.setId(id);
+			client.setUser(userService.findByEmail(client.getUser().getEmail()));
+			clientService.updateClient(client);
+			return "client/success";
+		}
+	}
+
+	// CLIENT DETAILS
 	@GetMapping(path = "/details/{id}")
 	public String clientDetails(@PathVariable Long id, Model model) {
-		
+
 		Client client = clientService.findById(id);
 		model.addAttribute("client", client);
 		return "client/clientDetails";
 	}
-	
-	//ADDING SIMILAR CLIENT
-		@GetMapping(path = "/addSimilar/{id}")
-		public String addSimilarClient(@PathVariable Long id, Model model) {
-			
-			Client client = clientService.findById(id);
-			model.addAttribute("client", client);
-			
-			List<String> statusList = clientService.getStatusList();
-			model.addAttribute("statusList", statusList);
-			
-			return "client/addSimilarClient";
-		}
-	
 
-		
+	// ADDING SIMILAR CLIENT
+	@GetMapping(path = "/addSimilar/{id}")
+	public String addSimilarClient(@PathVariable Long id, Model model) {
+
+		Client client = clientService.findById(id);
+		model.addAttribute("client", client);
+
+		List<String> statusList = clientService.getStatusList();
+		model.addAttribute("statusList", statusList);
+
+		return "client/addSimilarClient";
+	}
 
 }

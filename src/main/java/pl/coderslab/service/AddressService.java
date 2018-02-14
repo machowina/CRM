@@ -12,21 +12,21 @@ import pl.coderslab.repository.AddressRepository;
 
 @Service
 public class AddressService {
-	
-	
+
 	private final AddressRepository addressRepository;
-	
+
 	public AddressService(AddressRepository addressRepository) {
 		this.addressRepository = addressRepository;
 	}
-	
+
 	public List<String> getCitiesList() {
 		List<Address> addresses = addressRepository.findAll();
 		Set<String> cities = new HashSet<String>();
-		for (int i = 0; i < addresses.size(); i++) {
-			cities.add(addresses.get(i).getCity());
+		for (Address address : addresses) {
+			cities.add(address.getCity());
 		}
 		List<String> cityList = new ArrayList<>(cities);
+
 		return cityList;
 	}
 

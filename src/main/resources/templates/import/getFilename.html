@@ -27,7 +27,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 
 							<form th:action="@{/import}" method="post">
 								File name:
-									<input type="text" th:value="${filename}"/>
+									<input type="text" name="filename" th:value="${filename}"/>
 									<input class="btn btn-primary" type="submit" value="Import" />
 							</form>
 

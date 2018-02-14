@@ -28,24 +28,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 					              <a th:href="@{/employeeSearch}"><button class="btn btn-info" type="button">Search</button></a>
 					            </p>
 					            <p class="bs-component">
-					            All clients from your city  
+					            All clients from your city   
 					             <a	th:href="@{/employeeSearch/city}"><button class="btn btn-info" type="button">Search</button></a>
 					            </p>
 					            <form th:action="@{/employeeSearch/status}"  method="post">
-					            All clients with status 
+					            All clients with status  
 				                <select th:name="status">
 									<option th:each="el : ${statusList}" th:value="${el}"
 										th:text="${el}" />
-								</select> from your city
+								</select> from your city 
 								<input class="btn btn-primary" type="submit" value="Search" />
-								
+								</form>
+								<br/>
 								<form th:action="@{/employeeSearch/name}" method="post">
-									All clients with name containing
-									<input type="text" th:value="${name}"/> from your city
-									<input class="btn btn-primary" type="submit" value="Export" />
+									All clients with name containing 
+									<input type="text" name="name" th:value="${name}"/> from your city
+									<input class="btn btn-primary" type="submit" value="Search" />
 								</form>
 								
-					            </form>
+					        <div class="tile-footer">
+					        </div>    
 					        <br/>
 				            <div>
 							<table class="table table-hover table-bordered" id="sampleTable"> 
@@ -84,15 +86,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 							</table>
 							</div>
 							<br/>
-							
+							<div class="tile-footer">
 							<p class="bs-component">
 				              <a th:href="@{/employeeSearch/print}"><button class="btn btn-primary btn-lg btn-block" type="button">Save results as PDF file</button></a>
 				            </p>   
 							 <form th:action="@{/employeeSearch/export}" method="post">
 									Export csv file - file name:
-									<input type="text" th:value="${filename}"/>
+									<input type="text" name="filename" th:value="${filename}"/>
 									<input class="btn btn-primary" type="submit" value="Export" />
 							</form>
+							</div>
 
 						</div>
 					</div>
