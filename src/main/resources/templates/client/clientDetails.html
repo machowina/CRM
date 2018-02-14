@@ -1,0 +1,89 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-dashboard">Client details</i> 
+				</h1>
+				<p></p>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+				<li class="breadcrumb-item"><a href="#">Creating client</a></li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="row">
+						<div class="col-lg-6">
+						
+							<h3 class="tile-title">Client details</h3>
+							
+							<div th:object="${client}">
+								Name:
+								<p th:text="*{name}"></p>
+								Status:
+								<p th:text="*{status}"></p>
+								
+								Nip:
+								<p th:text="*{nip}"></p>
+								Created:
+								<p th:text="*{created}"></p>
+								
+								Responsible employee:
+								<p th:if="*{user}" th:text="*{user.name}"></p>
+								
+								<h4 class="tile-title">Contact person</h4>
+								Firstname:
+								<p th:text="*{contactPerson.firstname}"></p>
+								Lastname:
+								<p th:text="*{contactPerson.lastname}"></p>
+								Email:
+								<p th:text="*{contactPerson.email}"></p>
+								Phone:
+								<p th:text="*{contactPerson.phone}"></p>
+								
+								<h4 class="tile-title">Address</h4>
+								Firstname:
+								<p th:text="*{address.country}"></p>
+								Lastname:
+								<p th:text="*{address.region}"></p>
+								Email:
+								<p th:text="*{address.city}"></p>
+								Phone:
+								<p th:text="*{address.street}"></p>
+								Phone:
+								<p th:text="*{address.postcode}"></p>
+						
+							</div>
+							<h4 class="tile-title">Documents</h4>
+							<table> 
+								<tr	th:each="document: ${client.documents}" >
+									<td	th:text="${document.type}"></td>
+									<td	th:text="${document.title}"></td>		
+									<td	th:text="${document.value}"></td>
+									<td	th:text="${document.created}"></td>
+									<td	th:text="${document.author.name}"></td>
+									<td	th:text="${document.filename}"></td>
+									
+								</tr>
+							</table>
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

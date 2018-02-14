@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+          <h1><i class="fa fa-th-list"></i> Search for clients</h1>
+          <p>Your default search</p>
+        </div>
+			
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					
+						<div class="tile-body">
+						
+							<h4 class="mb-3 line-head">List of Clients</h4>
+							
+							<div class="col-lg-7">
+					            <p class="bs-component">
+					            Default search - all your clients  
+					              <a th:href="@{/employeeSearch}"><button class="btn btn-info" type="button">Search</button></a>
+					            </p>
+					            <p class="bs-component">
+					            All clients from your city  
+					             <a	th:href="@{/employeeSearch/city}"><button class="btn btn-info" type="button">Search</button></a>
+					            </p>
+					            <form th:action="@{/employeeSearch/status}"  method="post">
+					            All clients with status 
+				                <select th:name="status">
+									<option th:each="el : ${statusList}" th:value="${el}"
+										th:text="${el}" />
+								</select> from your city
+								<input class="btn btn-primary" type="submit" value="Search" />
+								
+								<form th:action="@{/employeeSearch/name}" method="post">
+									All clients with name containing
+									<input type="text" th:value="${name}"/> from your city
+									<input class="btn btn-primary" type="submit" value="Export" />
+								</form>
+								
+					            </form>
+					        <br/>
+				            <div>
+							<table class="table table-hover table-bordered" id="sampleTable"> 
+							<thead>
+				                  <tr>
+				                    <th>id</th>
+				                    <th>name</th>
+				                    <th>status</th>
+				                    <th>created</th>
+				                    <th>contact name</th>
+				                    <th>contact email</th>
+				                    <th>contact phone</th>
+				                    <th>region</th>
+				                    <th>city</th>
+				                    <th>street</th>
+				                    <th>responsible employee</th>
+				                    <th>action</th>
+				                  </tr>
+				             </thead>
+				              <tbody>
+								<tr	th:each="client: ${clientList}" >
+									<td	th:text="${client.id}"></td>
+									<td	th:text="${client.name}"></td>
+									<td	th:text="${client.status}"></td>
+									<td	th:text="${client.created}"></td>
+									<td	th:text="${client.contactPerson.name}"></td>
+									<td	th:text="${client.contactPerson.email}"></td>
+									<td	th:text="${client.contactPerson.phone}"></td>
+									<td	th:text="${client.address.region}"></td>
+									<td	th:text="${client.address.city}"></td>
+									<td	th:text="${client.address.street}"></td>
+									<td	th:text="${client.user.name}"></td>
+									<td><a th:href="@{/client/details/{id}(id=${client.id})}" th:text="details"></a></td>
+								</tr>
+							</tbody>	
+							</table>
+							</div>
+							<br/>
+							
+							<p class="bs-component">
+				              <a th:href="@{/employeeSearch/print}"><button class="btn btn-primary btn-lg btn-block" type="button">Save results as PDF file</button></a>
+				            </p>   
+							 <form th:action="@{/employeeSearch/export}" method="post">
+									Export csv file - file name:
+									<input type="text" th:value="${filename}"/>
+									<input class="btn btn-primary" type="submit" value="Export" />
+							</form>
+
+						</div>
+					</div>
+				
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

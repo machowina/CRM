@@ -1,0 +1,100 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-dashboard"></i> Create new client
+				</h1>
+				<p></p>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+				<li class="breadcrumb-item"><a href="#">Creating client</a></li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="row">
+						<div class="col-lg-6">
+							<h3 class="tile-title">Add Client</h3>
+							<form th:action="@{/client/add}" th:object="${client}"
+								method="post">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+    							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+								</div>
+								<p>
+									Name: <input type="text" th:field="*{name}" />
+								</p>
+								<div>
+								<label class="control-label">Status:
+								<select th:field="*{status}">
+									<option th:each="el : ${statusList}" th:value="${el}"
+										th:text="${el}" />
+								</select>
+								</label>
+								</div>
+								
+								<p>
+									Nip: <input type="text" th:field="*{nip}" />
+								</p>
+								<h4 class="tile-title">Contact person</h4>
+								 <fieldset >
+								 <p>
+									Firstname: <input type="text" th:field="*{contactPerson.firstname}" />
+								</p>
+								 <p>
+									Lasttname: <input type="text" th:field="*{contactPerson.lastname}" />
+								</p>
+								<p>
+									Email: <input type="text" th:field="*{contactPerson.email}" />
+								</p>
+								<p>
+									Phone: <input type="text" th:field="*{contactPerson.phone}" />
+								</p>
+								 </fieldset>
+								<h4 class="tile-title">Client address</h4>
+								 <fieldset >
+								 <p>
+									Country: <input type="text" th:field="*{address.country}" />
+								 </p>
+								 <p>
+									Region: <input type="text" th:field="*{address.region}" />
+								 </p>
+								 <p>
+									City: <input type="text" th:field="*{address.city}" />
+								 </p>
+								 <p>
+									Street: <input type="text" th:field="*{address.street}" />
+								 </p>
+								 <p>
+									Postcode: <input type="text" th:field="*{address.postcode}" />
+								</p>
+								 </fieldset>
+								
+								<div>
+								<p>
+									<input class="btn btn-primary" type="submit" value="Create" />
+								</p>
+								</div>
+							</form>
+
+
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

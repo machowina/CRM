@@ -1,0 +1,68 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+          <h1>Imported clients</h1>
+          <p>Imported clients</p>
+        </div>
+			
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					
+						<div class="tile-body">
+						
+							<h4 class="mb-3 line-head">Imported clients</h4>
+							
+							
+							<table class="table table-hover table-bordered" id="sampleTable"> 
+							<thead>
+				                  <tr>
+				                    <th>id</th>
+				                    <th>name</th>
+				                    <th>status</th>
+				                    <th>created</th>
+				                    <th>contact name</th>
+				                    <th>contact email</th>
+				                    <th>city</th>
+				                    <th>region</th>
+				                    <th>responsible employee</th>
+				                    <th>action</th>
+				                  </tr>
+				             </thead>
+				              <tbody>
+								<tr	th:each="client: ${clientList}" >
+									<td	th:text="${client.id}"></td>
+									<td	th:text="${client.name}"></td>
+									<td	th:text="${client.status}"></td>
+									<td	th:text="${client.created}"></td>
+									<td	th:text="${client.contactPerson.name}"></td>
+									<td	th:text="${client.contactPerson.email}"></td>
+									<td	th:text="${client.address.city}"></td>
+									<td	th:text="${client.address.region}"></td>
+									<td	th:text="${client.user.name}"></td>
+									<td><a th:href="@{/client/details/{id}(id=${client.id})}" th:text="details"></a></td>
+								</tr>
+							</tbody>	
+							</table>
+							</div>
+							<br/>
+
+						</div>
+					</div>
+				
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

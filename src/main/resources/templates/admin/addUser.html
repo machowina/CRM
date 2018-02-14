@@ -1,0 +1,94 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<section layout:fragment="content">
+
+		<div class="app-title">
+			<div>
+				<h1>
+					<i class="fa fa-dashboard"></i> Create new user
+				</h1>
+				<p></p>
+			</div>
+			<ul class="app-breadcrumb breadcrumb">
+				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+				<li class="breadcrumb-item"><a href="#">Creating user</a></li>
+			</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="tile">
+					<div class="row">
+						<div class="col-lg-6">
+
+							<form th:action="@{addUser}" th:object="${user}"
+								method="post">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+    							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+								</div>
+								<p>
+									Email: <input type="text" th:field="*{email}"/>
+								</p>
+								<p th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></p>
+								<p>
+									Password: <input type="text" th:field="*{password}" />
+								</p>
+								<p>
+									Firstname: <input type="text" th:field="*{firstname}" />
+								</p>
+								<p>
+									Lastname: <input type="text" th:field="*{lastname}" />
+								</p>
+								<p>
+									Phone number: <input type="text" th:field="*{phone}" />
+								</p>
+								<div>
+								<label class="control-label col-md-3">Supervisor:
+								<select th:field="*{supervisor}">
+									<option th:each="el : ${allUsers}" th:value="${el.id}"
+										th:text="${el.name}" />
+								</select>
+								</label>
+								</div>
+								
+								<div>
+								<label class="control-label col-md-3">Access rights:
+								<select th:field="*{roles}" multiple="multiple">
+									<option th:each="el : ${allRoles}" th:value="${el.id}"
+										th:text="${el.name}" />
+								</select>
+								</label>
+								</div>
+								
+								<div>
+								<label class="control-label col-md-3">Office:
+								<select th:field="*{office}">
+									<option th:each="el : ${allOffices}" th:value="${el.id}"
+										th:text="${el.address.city}" />
+								</select>
+								</label>
+								</div>
+								<br/>
+								<div>
+								<p>
+									<input class="btn btn-primary" type="submit" value="Create" />
+								</p>
+								</div>
+							</form>
+
+
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>
