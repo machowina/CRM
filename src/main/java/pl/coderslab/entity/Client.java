@@ -47,13 +47,7 @@ public class Client {
 	@JsonIgnore
 	private User user;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "client")
-	@JsonIgnore
-	private List<Event> events;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "client")
-	@JsonIgnore
-	private List<Contract> contracts;
 
 	
 	

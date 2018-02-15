@@ -66,17 +66,7 @@ public class User {
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "user")
 	private List<Client> clients;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "user")
-	private List<Event> events;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Notification> notifications;
-	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "author")
-	private List<Contract> contracts;
-	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "author")
-	private List<Report> reports;
 	
 	public String getName() {
 		return getFirstname() +" "+ getLastname();

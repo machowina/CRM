@@ -30,6 +30,8 @@ public class Notification {
 
 	private LocalDateTime created;
 	
-	private String status;
+	private boolean stopped;
+	
+	private String content;
 
 }

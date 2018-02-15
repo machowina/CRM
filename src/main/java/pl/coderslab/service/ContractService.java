@@ -1,11 +1,13 @@
 package pl.coderslab.service;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.coderslab.AuthenticationFacade;
+import pl.coderslab.entity.Client;
 import pl.coderslab.entity.Contract;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.ContractRepository;
@@ -56,6 +58,14 @@ public class ContractService {
 
 	public void save(Contract contract) {
 		contractRepository.save(contract);
+	}
+	
+	public List<Contract> findByClient(Client client) {
+		return contractRepository.findByClient(client);
+	}
+
+	public List<Contract> findByAcceptedBy(User user){
+		return contractRepository.findByAcceptedBy(user);
 	}
 
 }

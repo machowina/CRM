@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,13 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.coderslab.AuthenticationFacade;
 import pl.coderslab.entity.Client;
-import pl.coderslab.entity.Contract;
 import pl.coderslab.entity.Event;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.EventRepository;
@@ -50,21 +50,26 @@ public class EventController {
 
 	// GENERATING EVENT
 	@PostMapping("/new")
-	public String registerUser(@ModelAttribute("event") @Valid Event event,
+	public String registerEvent(@RequestParam String stringTime, @ModelAttribute("event") @Valid Event event,
 			BindingResult bresult, Model model) {
 		System.out.println("aaa");
 		if (bresult.hasErrors()) {
 			return "event/new";
 		} else {
-			System.out.println(event.getTitle());
-			System.out.println(event.getTime());
-			String result = "";
+			try {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+				event.setTime(LocalDateTime.parse(stringTime, formatter));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "event/new";
+			}
+		
 			User user = authenticationFacade.getAuthenticatedUser();
 			event.setUser(user);
 			
-			System.out.println(event.getClient().getName());
-			//eventRepository.save(event);
-			
+			eventRepository.save(event);
+			String result = "Event created";
+
 			model.addAttribute("result", result);
 			return "event/result";
 		}

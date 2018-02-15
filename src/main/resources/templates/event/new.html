@@ -36,11 +36,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 								<p>
 									Title: <input class="form-control" type="text" th:field="*{title}" />
 								</p>
-								<p>
-									Date: <input  type="date" th:field="*{date}" />
-								</p>
 								 <p>
-									Time: <input  type="time" th:field="*{time}" />
+									Time in format: dd-MM-yyyy HH:mm <input class="form-control" type="text" name="stringTime" th:value="${stringTime}"/>
 								</p>
 								
 								<div>

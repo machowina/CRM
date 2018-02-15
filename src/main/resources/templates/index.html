@@ -1,39 +1,144 @@
 
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorator="layout">
 <body>
 	<section layout:fragment="content">
+
 		<div class="app-title">
 			<div>
 				<h1>
-					<i class="fa fa-dashboard"></i> Home Page
+					<i class="fa fa-dashboard"> User home page </i> 
 				</h1>
-				<p>Welcome in Your CRM system</p>
+				<p></p>
 			</div>
 			<ul class="app-breadcrumb breadcrumb">
 				<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-				<li class="breadcrumb-item"><a href="#"></a></li>
+				<li class="breadcrumb-item"><a href="#">User home page</a></li>
 			</ul>
 		</div>
+		
+		
 		<div class="row">
-			<div class="col-md-12">
-				<div class="tile">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">User home page</h3>
+            <div class="tile-body">
+            
+            
+            <div th:object="${user}">
+								Name:
+								<p th:text="*{name}"></p>
+								Email:
+								<p th:text="*{email}"></p>
+								
 					
-
-
-					<p class="bs-component">
-					WELCOME TO YOUR CRM SYSTEM!
-					</p>
-					<p><a th:href="@{/logout}">Log in</a></p>
+								Roles:
+								<p th:text="*{roles}"></p>
+								Supervisor:
+								<p th:text="*{supervisor}"></p>
+								Active:
+								<p th:text="*{active}"></p>
+							
+								Phone:
+								<p th:text="*{phone}"></p>
+								
+								<h4 class="tile-title">Office address</h4>
+								Country:
+								<p th:text="*{office.address.country}"></p>
+								Region:
+								<p th:text="*{office.address.region}"></p>
+								City:
+								<p th:text="*{office.address.city}"></p>
+								Street:
+								<p th:text="*{office.address.street}"></p>
+								Postcode:
+								<p th:text="*{office.address.postcode}"></p>
+						
+							</div>
+							
+            
+            </div>
+              </div>
+        </div>
+        
+        
+        <div class="col-md-6">
+          <div class="tile">
+            <div class="tile-title-w-btn">
+              <h3 class="title">Notifications:</h3>
+              </div>
+            <div class="tile-body">
+            
+            <ul>
+   			<li th:each="notification: ${notificationList}" >
+   			
+   			
+   			<div class="card mb-3 text-white bg-info">
+   			
+                <div class="card-body">
+                  <blockquote class="card-blockquote">
+                   <h5 th:text="${notification.content}"></h5>
+                    <footer>
+                    Created:
+                      <cite title="Source Title" th:text="${notification.created}"></cite>
+                    </footer>
+                  </blockquote>
+                </div>
+              </div>
+	   			 <p>
+	   			 <a class="btn btn-primary" th:href="@{/notification/stop}">
+				</a>
+				</p>
+   			</li>
+		</ul>
+            
+            </div>
+          </div>
+        
+          <div class="tile">
+            <div class="tile-title-w-btn">
+              <h3 class="title">Contracts</h3>
+             
+            </div>
+            <div class="tile-body">
+	         	<table class="table table-hover table-bordered" id="sampleTable"> 
+					<thead>
+	         		<tr	>
+						<td	th:text="Title"></td>		
+						<td	th:text="Value"></td>
+						<td	th:text="Created"></td>
+						<td	th:text="Author"></td>
+						<td	th:text="Filename"></td>
+						<td	th:text="Accepted"></td>
+						<td	th:text="Accept"></td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr	th:each="document: ${contractList}" >
+						<td	th:text="${document.title}"></td>		
+						<td	th:text="${document.value}"></td>
+						<td	th:text="${document.created}"></td>
+						<td	th:text="${document.author.name}"></td>
+						<td	th:text="${document.filename}"></td>
+						<td	th:text="${document.accepted}"></td>
+						<td><a th:href="@{/contract/accept/{id}(id=${document.id})}" th:text="ACCEPT"></a>
+						<a th:href="@{/contract/print/{id}(id=${document.id})}" th:text="PRINT"></a></td>
+					</tr>
+					</tbody>	
 					
-				</div>
-
-
-			</div>
+				</table>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
 		</div>
+
 	</section>
 </body>
 </html>

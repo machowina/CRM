@@ -23,7 +23,6 @@ import io.restassured.specification.RequestSpecification;
 @TestPropertySource("/test.properties")
 @SpringBootTest(classes = { CrmApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
-//@SqlGroup({ @Sql(scripts = "/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD) })
 public class ClientResourceTest {
 
 	@LocalServerPort

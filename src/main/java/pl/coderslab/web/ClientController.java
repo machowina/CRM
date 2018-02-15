@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.coderslab.entity.Client;
+import pl.coderslab.entity.Contract;
+import pl.coderslab.entity.Event;
+import pl.coderslab.repository.EventRepository;
 import pl.coderslab.service.ClientService;
+import pl.coderslab.service.ContractService;
 import pl.coderslab.service.UserService;
 
 @Controller
@@ -26,6 +30,11 @@ public class ClientController {
 	private ClientService clientService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ContractService contractService;
+	@Autowired
+	private EventRepository eventRepository;
+	
 
 	// ADDING NEW CLIENT
 	@GetMapping(path = "/add")
@@ -85,6 +94,13 @@ public class ClientController {
 
 		Client client = clientService.findById(id);
 		model.addAttribute("client", client);
+		
+		List<Contract> contractList = contractService.findByClient(client);
+		model.addAttribute("contractList", contractList);
+		
+		List<Event> eventList = eventRepository.findByClient(client);
+		model.addAttribute("eventList", eventList);
+		
 		return "client/clientDetails";
 	}
 

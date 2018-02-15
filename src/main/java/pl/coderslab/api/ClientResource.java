@@ -47,7 +47,7 @@ public class ClientResource {
 	}
 
 	@PostMapping("/{userEmail}")
-	ResponseEntity createClient(@PathVariable String userEmail, @RequestBody Client client) {
+	ResponseEntity createClient(@PathVariable String userEmail, @Valid @RequestBody Client client) {
 		client.setUser(userService.findByEmail(userEmail));
 		Long id = clientService.saveClient(client);
 		return ResponseEntity.ok(id);
