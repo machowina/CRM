@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 
@@ -26,11 +27,11 @@ public class Company {
 	@OneToOne
 	private Address mainAddress;
 	
+	@Pattern(regexp = "\\d{10}")
 	private String nip;
 	
 	@OneToMany
 	(mappedBy = "address")
 	private List<Office> offices;
-	
 	
 }

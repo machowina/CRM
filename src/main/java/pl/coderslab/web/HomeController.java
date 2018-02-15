@@ -25,7 +25,7 @@ public class HomeController {
 	@Autowired
 	private AuthenticationFacade authenticationFacade;
 
-	
+	//SHOW HOME PAGE FOR LOGGED USER
 	@GetMapping("/")
     public String home(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();

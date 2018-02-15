@@ -29,7 +29,6 @@ import pl.coderslab.service.UserService;
 
 @Controller
 @RequestMapping("/managerSearch")
-// @Secured("ROLE_MENAGER")
 public class ManagerSearchController {
 
 	private List<Client> clientList;
@@ -56,17 +55,8 @@ public class ManagerSearchController {
 		model.addAttribute("cityList", addressService.getCitiesList());
 	}
 
-	// ALL CLIENTS SEARCH
+	// DEFAULT SEARCH - TEAM CLIENTS SEARCH
 	@GetMapping
-	public String allSearch(Model model) {
-		List<Client> clientList = clientRepository.findAll();
-		model.addAttribute("clientList", clientList);
-		return "manager/search";
-	}
-
-	// TEAM CLIENTS SEARCH
-	@GetMapping(path = "/team")
-	@Secured("ROLE_MANAGER")
 	public String defaultSearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
 		List<User> employees = userService.findBySupervisor(user);
@@ -75,17 +65,24 @@ public class ManagerSearchController {
 		return "manager/search";
 	}
 
-	// CITY SEARCH
-	@PostMapping(path = "/city")
-	public String citySearch(@RequestParam String city, Model model) {
-		List<Client> clientList = clientRepository.findByAddressCityOrderByNameAsc(city);
+	// ALL CLIENTS SEARCH
+	@GetMapping("/all")
+	public String allSearch(Model model) {
+		List<Client> clientList = clientRepository.findAll();
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
 	}
 
-	// MY REGION SEARCH
+	// CITY SEARCH
+	@PostMapping(path = "/city")
+	public String citySearch(@RequestParam String city, Model model) {
+		List<Client> clientList = clientRepository.findByAddressCityContainingIgnoreCaseOrderByNameAsc(city);
+		model.addAttribute("clientList", clientList);
+		return "manager/search";
+	}
+
+	// MANAGER REGION SEARCH
 	@GetMapping(path = "/region")
-	@Secured("ROLE_MANAGER")
 	public String citySearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
 		List<Client> clientList = clientRepository
@@ -107,20 +104,20 @@ public class ManagerSearchController {
 	public String nameSearch(@RequestParam String name, Model model) {
 		List<Client> clientList = clientRepository.findByNameContainingIgnoreCaseOrderByNameAsc(name);
 		model.addAttribute("clientList", clientList);
-		return "search/default";
+		return "manager/search";
 	}
 
-	// PRINT SEARCH
+	// PRINT SEARCHED LIST OF CLIENTS INTO PDF FILE
 	@GetMapping(path = "/print")
 	public String printSearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
 		String filename = "pdf/" + user.getLastname() + "_" + search + "_" + LocalDateTime.now();
 		String result = pdfService.printClientList(filename, clientList);
 		model.addAttribute("result", result);
-		return "employee/result";
+		return "manager/result";
 	}
 
-	// EXPORT SEARCH
+	// EXPORT SEARCHED LIST OF CLIENTS INTO CSV FILE
 	@PostMapping(path = "/export")
 	public String exportSearch(@RequestParam String filename, Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
@@ -142,7 +139,7 @@ public class ManagerSearchController {
 			e.printStackTrace();
 		}
 		model.addAttribute("result", result);
-		return "employee/result";
+		return "manager/result";
 	}
 
 }

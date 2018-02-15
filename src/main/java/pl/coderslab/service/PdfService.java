@@ -33,9 +33,13 @@ public class PdfService {
 	private static final List<String> TITLE_LIST = Arrays.asList("Id", "Name", "Status", "Created", "Contact name",
 			"Contact email", "City", "Region", "Responsible employee");
 
-	
+	/**Sends given Client list to print into pdf file
+	 * 
+	 * @param filename without .pdf, with folder path
+	 * @param clientList to print
+	 * @return String result of action
+	 */
 	public String printClientList(String filename, List<Client> clientList) {
-
 		List<List<String>> data = new ArrayList<>();
 
 		data.add(TITLE_LIST);
@@ -66,7 +70,13 @@ public class PdfService {
 		}
 	}
 
-	public void makeTablePdf(String filename, List<List<String>> data) throws IOException {
+	/**Prints given List<List<String>> data into pdf file
+	 * 
+	 * @param filename without .pdf, with folder path
+	 * @param data List of List of Strings to print
+	 * @throws IOException
+	 */
+	private void makeTablePdf(String filename, List<List<String>> data) throws IOException {
 
 		File file = new File(filename + TYPE);
 		file.getParentFile().mkdirs();
@@ -95,6 +105,11 @@ public class PdfService {
 		document.close();
 	}
 	
+	/**Prints pdf with simple test contract for given Contract object
+	 * 
+	 * @param contract given Contract object
+	 * @throws FileNotFoundException
+	 */
 	public void printContract(Contract contract) throws FileNotFoundException {
 		
 		String filename = contract.getFilename()+ TYPE;
@@ -110,7 +125,6 @@ public class PdfService {
 		// Initialize document
 		Document document = new Document(pdf);
 		
-
 
 		document.add(new Paragraph(contract.getTitle()));
 		

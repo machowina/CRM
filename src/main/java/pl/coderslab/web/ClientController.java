@@ -34,7 +34,6 @@ public class ClientController {
 	private ContractService contractService;
 	@Autowired
 	private EventRepository eventRepository;
-	
 
 	// ADDING NEW CLIENT
 	@GetMapping(path = "/add")
@@ -48,7 +47,7 @@ public class ClientController {
 
 		return "client/addClient";
 	}
-
+	//SAVING NEW CLIENT
 	@PostMapping(path = "/add")
 	public String registerClient(@ModelAttribute("client") @Valid Client client, BindingResult bresult) {
 
@@ -72,7 +71,7 @@ public class ClientController {
 
 		return "client/editClient";
 	}
-
+	//SAVING EDITED CLIENT
 	@PostMapping(path = "/edit/{id}")
 	public String seveClient(@ModelAttribute("client") @Valid Client client, BindingResult bresult,
 			@PathVariable Long id) {
@@ -83,7 +82,7 @@ public class ClientController {
 
 			client.setId(id);
 			client.setUser(userService.findByEmail(client.getUser().getEmail()));
-			clientService.updateClient(client);
+			clientService.saveClient(client);
 			return "client/success";
 		}
 	}
@@ -94,13 +93,13 @@ public class ClientController {
 
 		Client client = clientService.findById(id);
 		model.addAttribute("client", client);
-		
+
 		List<Contract> contractList = contractService.findByClient(client);
 		model.addAttribute("contractList", contractList);
-		
+
 		List<Event> eventList = eventRepository.findByClient(client);
 		model.addAttribute("eventList", eventList);
-		
+
 		return "client/clientDetails";
 	}
 

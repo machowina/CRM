@@ -107,8 +107,8 @@
       <ul class="app-menu">
         <li><a class="app-menu__item" th:href="@{/}"><span class="app-menu__label"> Home page</span></a></li>
    
-        <li><a class="app-menu__item" th:href="@{/employeeSearch}"><span class="app-menu__label"> Client search</span></a></li>
-       	<li><a class="app-menu__item" th:href="@{/managerSearch}"><span class="app-menu__label"> Client search</span></a></li>
+        <li><a class="app-menu__item" th:href="@{/employeeSearch}"><span class="app-menu__label"> Employee search</span></a></li>
+       	<li><a class="app-menu__item" th:href="@{/managerSearch}"><span class="app-menu__label"> Manager search</span></a></li>
         
         <li><a class="app-menu__item" th:href="@{/client/add}"><span class="app-menu__label">Add Client</span></a></li>
         <li><a class="app-menu__item" th:href="@{/admin/addUser}"><span class="app-menu__label">Add User</span></a></li>
@@ -116,13 +116,6 @@
  		<li><a class="app-menu__item" th:href="@{/event/new}"><span class="app-menu__label">New event</span></a></li>
  
         
-        <li><p sec:authorize-url="/employeeSearch"><a class="app-menu__item" th:href="@{/employeeSearch}" ><span class="app-menu__label"> Client search</span></a></p></li>
-        <li><p sec:authorize-url="/managerSearch"><a class="app-menu__item" th:href="@{/managerSearch}"><span class="app-menu__label"> Client search</span></a></p></li>
-        
-        <li><p sec:authorize-url="/client/add"><a class="app-menu__item" th:href="@{/client/add}"><span class="app-menu__label">Add Client</span></a></p></li>
-        <li><p sec:authorize-url="/admin/addUser"><a class="app-menu__item" th:href="@{/admin/addUser}"><span class="app-menu__label">Add User</span></a></p></li>
-        <li><p sec:authorize-url="/import"><a class="app-menu__item" th:href="@{/import}"><span class="app-menu__label">Import</span></a></p></li>
- 
       </ul>
     </aside>
     <main class="app-content">

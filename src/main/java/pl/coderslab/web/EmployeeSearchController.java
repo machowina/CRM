@@ -29,7 +29,6 @@ import pl.coderslab.service.PdfService;
 
 @Controller
 @RequestMapping("/employeeSearch")
-@Secured("ROLE_ADMIN")
 public class EmployeeSearchController {
 
 	private List<Client> clientList;
@@ -51,7 +50,7 @@ public class EmployeeSearchController {
 		model.addAttribute("statusList", clientService.getStatusList());
 	}
 
-	// DEFAULT SEARCH - YOUR CLIENTS
+	// DEFAULT SEARCH - USER CLIENTS
 	@GetMapping
 	public String defaultSearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
@@ -71,7 +70,7 @@ public class EmployeeSearchController {
 		return "employee/search";
 	}
 
-	// STATUS SEARCH
+	// STATUS SEARCH FROM USER CITY
 	@PostMapping(path = "/status")
 	public String statusSearch(@RequestParam String status, Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
@@ -82,7 +81,7 @@ public class EmployeeSearchController {
 		return "employee/search";
 	}
 
-	// NAME SEARCH
+	// NAME SEARCH FROM USER CITY
 	@PostMapping(path = "/name")
 	public String nameSearch(@RequestParam String name, Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
@@ -94,7 +93,7 @@ public class EmployeeSearchController {
 		return "employee/search";
 	}
 
-	// PRINT SEARCH
+	// PRINT SEARCHED CLIENT LIST
 	@GetMapping(path = "/print")
 	public String printSearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
@@ -104,7 +103,7 @@ public class EmployeeSearchController {
 		return "employee/result";
 	}
 
-	// EXPORT SEARCH
+	// EXPORT SEARCHED CLIENT LIST
 	@PostMapping(path = "/export")
 	public String exportSearch(@RequestParam String filename, Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();

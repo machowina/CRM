@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,7 +30,7 @@ public class Client {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	
+	@NotBlank
 	private String name;
 	
 	private String status;

@@ -35,6 +35,12 @@ public class CsvImportExportService {
 	private ClientService clientService;
 	
 
+	/**Imports csv file with list of Client objects
+	 * 
+	 * @param filename without .csv, with folder path
+	 * @return list of imported Client objects
+	 * @throws IOException
+	 */
 	public List<Client> readCsvWithHeader(String filename) throws IOException {
 
 		Reader reader;
@@ -55,6 +61,14 @@ public class CsvImportExportService {
 		return clientList;
 	}
 
+	/**Exports csv file with list of Client objects
+	 * 
+	 * @param filename without .csv, with folder path
+	 * @param clientList to export
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
 	public void writeCsv(String filename, List<Client> clientList)
 			throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 

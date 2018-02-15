@@ -19,6 +19,10 @@ public class AddressService {
 		this.addressRepository = addressRepository;
 	}
 
+	/**Returns list of cities from clients and company offices addresses.
+	 * 
+	 * @return String list of cities
+	 */
 	public List<String> getCitiesList() {
 		List<Address> addresses = addressRepository.findAll();
 		Set<String> cities = new HashSet<String>();

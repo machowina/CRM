@@ -67,9 +67,10 @@ public class ContractController {
 				contract.setAccepted(true);
 				contractService.save(contract);
 				result = "Contract generated";
+			} else if (contractService.sendToSupervisor(contract, user)) {
+				result = "Contract send to supervisor";		
 			} else {
-				contractService.sendToSupervisor(contract, user);
-				result = "Contract send to supervisor";
+				result = "You don't have a supervisor who can accept this contract";
 			}
 			model.addAttribute("result", result);
 			return "contract/result";

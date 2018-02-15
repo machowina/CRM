@@ -63,10 +63,10 @@ public class EventController {
 				e.printStackTrace();
 				return "event/new";
 			}
-		
+
 			User user = authenticationFacade.getAuthenticatedUser();
 			event.setUser(user);
-			
+
 			eventRepository.save(event);
 			String result = "Event created";
 

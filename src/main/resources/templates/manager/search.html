@@ -28,17 +28,35 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 					              <a th:href="@{/managerSearch}"><button class="btn btn-info" type="button">Search</button></a>
 					            </p>
 					            <p class="bs-component">
-					            All clients from your city  
-					             <a	th:href="@{/managerSearch/city}"><button class="btn btn-info" type="button">Search</button></a>
+					            List all clients
+					              <a th:href="@{/managerSearch/all}"><button class="btn btn-info" type="button">Search</button></a>
+					            </p>
+					            
+								<p class="bs-component">
+					            All clients from your region
+					              <a th:href="@{/managerSearch/region}"><button class="btn btn-info" type="button">Search</button></a>
 					            </p>
 					            <form th:action="@{/managerSearch/status}"  method="post">
 					            All clients with status 
 				                <select th:name="status">
 									<option th:each="el : ${statusList}" th:value="${el}"
 										th:text="${el}" />
-								</select> from your city
+								</select>
 								<input class="btn btn-primary" type="submit" value="Search" />
 					            </form>
+					            <br/>
+					            <form th:action="@{/managerSearch/city}" method="post">
+								All clients from city: 
+									<input type="text" name="city" th:value="${city}"/> 
+									<input class="btn btn-primary" type="submit" value="Search" />
+								</form>
+								<br/>
+								<form th:action="@{/managerSearch/name}" method="post">
+								All clients with name containing 
+									<input type="text" name="name" th:value="${name}"/>
+									<input class="btn btn-primary" type="submit" value="Search" />
+								</form>
+					            
 					        <br/>
 				            <div>
 							<table class="table table-hover table-bordered" id="sampleTable"> 

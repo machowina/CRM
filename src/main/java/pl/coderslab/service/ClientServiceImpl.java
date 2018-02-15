@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
 		this.addressRepository = addressRepository;
 	}
 
-
+	
 	@Override
 	public Client findById(Long id) {
 		return clientRepository.findOne(id);
@@ -51,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
 	
 	@Override
 	public List<String> getStatusList() {
-		List<String> statusList = Arrays.asList("lead","current","lost");
+		List<String> statusList = Arrays.asList("lead","client","lost");
 		return statusList;
 	}
 
@@ -70,41 +70,6 @@ public class ClientServiceImpl implements ClientService {
 		return client.getId();
 	}
 
-	
-	@Override
-	public void updateClient(Client client) {
-		Client oldClient = clientRepository.findOne(client.getId());
-		oldClient.setUser(client.getUser());
-		oldClient.setName(client.getName());
-		oldClient.setStatus(client.getStatus());
-		oldClient.setNip(client.getNip());
-		
-		if (oldClient.getContactPerson()!=null) {
-			ContactPerson oldContact = contactPersonRepository.findOne(oldClient.getContactPerson().getId());
-			oldContact.setFirstname(client.getContactPerson().getFirstname());
-			oldContact.setLastname(client.getContactPerson().getLastname());
-			oldContact.setEmail(client.getContactPerson().getEmail());
-			oldContact.setPhone(client.getContactPerson().getPhone());
-		} else {
-			ContactPerson newContact = client.getContactPerson();
-			contactPersonRepository.save(newContact);
-			oldClient.setContactPerson(newContact);
-		}
-
-		if (oldClient.getAddress()!=null) {
-			Address oldAddress = addressRepository.findOne(oldClient.getAddress().getId());
-			oldAddress.setCountry(client.getAddress().getCountry());
-			oldAddress.setRegion(client.getAddress().getRegion());
-			oldAddress.setCity(client.getAddress().getCity());
-			oldAddress.setStreet(client.getAddress().getStreet());
-			oldAddress.setPostcode(client.getAddress().getPostcode());
-		} else {
-			Address newAddress = client.getAddress();
-			addressRepository.save(newAddress);
-			oldClient.setAddress(newAddress);
-		}
-		clientRepository.save(oldClient);
-	}
 
 
 	@Override
@@ -117,15 +82,6 @@ public class ClientServiceImpl implements ClientService {
 	public List<Client> findByUser(User user) {
 		return clientRepository.findByUser(user);
 	}
-
-
-	
-
-
-
-
-	
-
 
 
 }

@@ -27,6 +27,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 	List<Client> findByStatusOrderByNameAsc(String status);
 	
 	List<Client> findByAddressCityOrderByNameAsc(String city);
+	List<Client> findByAddressCityContainingIgnoreCaseOrderByNameAsc(String city);
 	List<Client> findByAddressRegionOrderByNameAsc(String region);
 	
 	List<Client> findByNipContaining(String nip);

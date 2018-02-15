@@ -56,7 +56,7 @@ public class ClientResource {
 	@PutMapping("/{userEmail}")
 	ResponseEntity updateUser(@PathVariable String userEmail, @Valid @RequestBody Client client) {
 		client.setUser(userService.findByEmail(userEmail));
-		clientService.updateClient(client);
+		clientService.saveClient(client);
 		return ResponseEntity.accepted().build();
 	}
 

@@ -22,11 +22,21 @@ public class ImportController {
 	@Autowired
 	private CsvImportExportService csvService;
 
+	/**Show input for filename to import
+	 * 
+	 * @return form
+	 */
 	@GetMapping
 	public String importCsvView() {
 		return "import/getFilename";
 	}
 
+	/**Import given file
+	 * 
+	 * @param filename without path or .csv
+	 * @param model
+	 * @return view with result and list of imported clients
+	 */
 	@PostMapping
 	public String importCsv(@RequestParam String filename, Model model) {
 		String newFilename = "csvImport/" + filename;

@@ -51,7 +51,7 @@ public class AdminController {
 		model.addAttribute("allOffices", allOffices);
 		return "admin/addUser";
 	}
-
+	//SAVING NEW USER
 	@PostMapping(path = "/addUser")
 	public String registerUser(@ModelAttribute("user") @Valid User user, BindingResult bresult) {
 		
