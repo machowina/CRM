@@ -56,6 +56,7 @@ public class ContractController {
 			String result;
 			User user = authenticationFacade.getAuthenticatedUser();
 			Client client = clientService.findById(id);
+			contract.setId(null);
 			contract.setClient(client);
 			contract.setAuthor(user);
 			contract.setCreated(LocalDateTime.now());

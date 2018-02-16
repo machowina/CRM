@@ -14,4 +14,5 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 	Notification findFirstByEventOrderByCreatedDesc(Event event);
 	List<Notification> findByEvent(Event event);
 	List<Notification> findByUser(User user);
+	
 }

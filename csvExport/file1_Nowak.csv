@@ -1,0 +1,4 @@
+CITY,CONTACTEMAIL,CONTACTFIRSTNAME,CONTACTLASTNAME,CONTACTPHONE,COUNTRY,NAME,NIP,POSTCODE,REGION,STATUS,STREET,USEREMAIL
+Warsaw,mail4@mail.com,name4,last4,,Poland,Test name,,02-333,Central,lead,Prosta 60,anna@mail.com
+Warsaw,mail4@mail.com,name4,last4,546-090-899,Poland,Company 3,1234567890,02-036,Central,client,Prosta 67,anna@mail.com
+Warsaw,mail5@mail.com,name5,last5,,Poland,Company 4,,02-880,Central,lead,Radosna 5,anna@mail.com

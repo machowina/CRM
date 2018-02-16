@@ -37,11 +37,15 @@ public class NotificationService {
 	 */
 	@Scheduled(cron = "0 */5 9-17 * * MON-FRI")
 	public void checkIfGenerateNotification() {
-		// if (!todayEventList.isEmpty()) {
 
 		for (Event event : todayEventList) {
 			// delete event from list if it's in the past
 			if (LocalDateTime.now().isAfter(event.getTime())) {
+				
+				List<Notification> list = notificationRepository.findByEvent(event);
+				for (Notification n : list) {
+					notificationRepository.delete(n);
+				}
 				todayEventList.remove(event);
 
 			// generate notification if event is in 1 hour
@@ -71,7 +75,7 @@ public class NotificationService {
 	 * and generates first notifications
 	 * 
 	 */
-	@Scheduled(cron = "0 46 10 * * MON-FRI")
+	@Scheduled(cron = "0 30 8 * * MON-FRI")
 	public void generateMorningNotifications() {
 		todayEventList = eventRepository.findByTimeBetween(LocalDateTime.now(), LocalDateTime.now().plusDays(1));
 		// generate notifications for all today's events
