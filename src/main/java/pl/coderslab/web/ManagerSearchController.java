@@ -60,7 +60,7 @@ public class ManagerSearchController {
 	public String defaultSearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
 		List<User> employees = userService.findBySupervisor(user);
-		List<Client> clientList = clientRepository.findByUserIn(employees);
+		clientList = clientRepository.findByUserIn(employees);
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
 	}
@@ -68,7 +68,7 @@ public class ManagerSearchController {
 	// ALL CLIENTS SEARCH
 	@GetMapping("/all")
 	public String allSearch(Model model) {
-		List<Client> clientList = clientRepository.findAll();
+		clientList = clientRepository.findAll();
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
 	}
@@ -76,7 +76,7 @@ public class ManagerSearchController {
 	// CITY SEARCH
 	@PostMapping(path = "/city")
 	public String citySearch(@RequestParam String city, Model model) {
-		List<Client> clientList = clientRepository.findByAddressCityContainingIgnoreCaseOrderByNameAsc(city);
+		clientList = clientRepository.findByAddressCityContainingIgnoreCaseOrderByNameAsc(city);
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
 	}
@@ -85,7 +85,7 @@ public class ManagerSearchController {
 	@GetMapping(path = "/region")
 	public String citySearch(Model model) {
 		User user = authenticationFacade.getAuthenticatedUser();
-		List<Client> clientList = clientRepository
+		clientList = clientRepository
 				.findByAddressRegionOrderByNameAsc(user.getOffice().getAddress().getRegion());
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
@@ -94,7 +94,7 @@ public class ManagerSearchController {
 	// STATUS SEARCH
 	@PostMapping(path = "/status")
 	public String statusSearch(@RequestParam String status, Model model) {
-		List<Client> clientList = clientRepository.findByStatusOrderByNameAsc(status);
+		clientList = clientRepository.findByStatusOrderByNameAsc(status);
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
 	}
@@ -102,7 +102,7 @@ public class ManagerSearchController {
 	// NAME SEARCH
 	@PostMapping(path = "/name")
 	public String nameSearch(@RequestParam String name, Model model) {
-		List<Client> clientList = clientRepository.findByNameContainingIgnoreCaseOrderByNameAsc(name);
+		clientList = clientRepository.findByNameContainingIgnoreCaseOrderByNameAsc(name);
 		model.addAttribute("clientList", clientList);
 		return "manager/search";
 	}
@@ -141,5 +141,7 @@ public class ManagerSearchController {
 		model.addAttribute("result", result);
 		return "manager/result";
 	}
+	
+	
 
 }

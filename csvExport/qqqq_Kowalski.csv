@@ -1,0 +1,10 @@
+CITY,CONTACTEMAIL,CONTACTFIRSTNAME,CONTACTLASTNAME,CONTACTPHONE,COUNTRY,NAME,NIP,POSTCODE,REGION,STATUS,STREET,USEREMAIL
+Warsaw,ann@mail.com,Ann,Shirley,546-090-899,Poland,Test Company,,02-036,Central,lead,Uniwersytecka 14,employee@mail.com
+Warsaw,marczak@mail.com,Jan,Marczak,544-455-677,Poland,Another Company,1234567890,02-880,Central,client,Dzika 6b,employee@mail.com
+Warsaw,nnnn@mail.com,name,lastname,,Poland,Test test,,02-399,Central,lost,Bokserska 90,employee@mail.com
+Warsaw,mail1@mail.com,name2,lastname2,222-333-444,Poland,Client,,02-399,Central,lead,Bokserska 90,employee@mail.com
+Warsaw,mail3@mail.com,name3,last3,607-900-809,Poland,client name,1234567890,02-399,Central,client,Boksersk 13,employee@mail.com
+Warsaw,www@ss,wwww,wwww,,Poland,test,,02-399,Central,lead,ddd,employee@mail.com
+Warsaw,jan@kowalski.pl,Jan,Kowalski,609-987-323,Poland,Castorama,1234567890,02-030,Central,lead,Prosta 50,employee@mail.com
+Warsaw,anna@nowak,Anna,Nowak,509-987-323,Poland,Luxmed,1234567890,02-030,Central,lead,Prosta 51,employee@mail.com
+Krakow,john@doe,John,Doe,709-987-323,Poland,Poczta Polska,1234567890,02-546,South,lead,Sienna 13b,employee@mail.com
