@@ -37,8 +37,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 					
 								Roles:
 								<p th:text="*{roles}"></p>
-								Supervisor:
-								<p th:text="*{supervisor.name}"></p>
+								
 								Active:
 								<p th:text="*{active}"></p>
 							
@@ -75,7 +74,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
             <ul>
    			<li th:each="notification: ${notificationList}" >
    			
-   			<div class="card mb-3" th:classappend="${notification.wasRead} ? text-white bg-primary : border-primary">
+   			<div class="card mb-3 border-primary">
    			
                 <div class="card-body">
                   <blockquote class="card-blockquote" >
@@ -87,10 +86,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
                   </blockquote>
                 </div>
               </div>
-	   			 <p>
-	   			 <a class="btn btn-primary" th:href="@{/notification/stop}">
-				</a>
-				</p>
+	   			
    			</li>
 		</ul>
             

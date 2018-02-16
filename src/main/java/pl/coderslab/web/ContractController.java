@@ -99,15 +99,18 @@ public class ContractController {
 		Contract contract = contractService.findById(id);
 		User user = authenticationFacade.getAuthenticatedUser();
 		String result;
-		
-		try {
-			contractService.print(contract);
-			result = "Contract printed";
-		} catch (FileNotFoundException e) {
-			result = "Contract not printed. File not found.";
-			e.printStackTrace();
+		if (contract.isAccepted()) {
+			try {
+				contractService.print(contract);
+				result = "Contract printed";
+			} catch (FileNotFoundException e) {
+				result = "Contract not printed. File not found.";
+				e.printStackTrace();
+			}
+		} else {
+			result = "Contract must be accepted first";
 		}
-
+		
 		model.addAttribute("result", result);
 		return "contract/result";
 	}
